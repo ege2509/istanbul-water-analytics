@@ -37,7 +37,7 @@ def validate_dataset(file_name):
     duplicates = df.duplicated().sum()
     if duplicates > 0:
         print(f"Found {duplicates} duplicate rows ({duplicates/len(df)*100:.2f}%)")
-        # Show example
+
         dup_rows = df[df.duplicated(keep=False)].head(3)
         print(f"   Example duplicates:\n{dup_rows}\n")
     else:
@@ -112,6 +112,7 @@ if __name__ == "__main__":
     
     validate_dataset('istanbul-dams-daily-occupancy-rates.xlsx')
     validate_dataset('istanbul-barajlarnda-ya-ve-gunluk-tuketim-verileri.xlsx')
+    validate_dataset('istanbula-verilen-temiz-su-miktarlar-tr-en.xlsx')
 
     validate_dataset('consumption_cleaned.xlsx')
     validate_dataset('occupancy_cleaned.xlsx')

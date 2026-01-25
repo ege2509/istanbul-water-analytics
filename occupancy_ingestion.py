@@ -22,4 +22,20 @@ df1_long = df1.melt(id_vars= ['Tarih'],
 
 cutoff = pd.Timestamp("1.01.2011  00:00:00")
 
-df2 = df1_long[df1_long['Tarih']  >= cutoff]
+df2 = df1_long[df1_long['Tarih']  >= cutoff].copy() 
+
+df2["dam_name"] = (
+    df2["dam_name"]
+    .str.lower()
+    .str.replace(" ", "_")
+    .str.replace("ü", "u")
+    .str.replace("ö", "o")
+    .str.replace("ç", "c")
+    .str.replace("ğ", "g")
+    .str.replace("ş", "s")
+    .str.replace("ı", "i")
+)
+
+df2 = df2.rename(columns={ 'Tarih' : 'Date'})
+
+
