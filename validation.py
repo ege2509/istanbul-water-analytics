@@ -112,4 +112,7 @@ if __name__ == "__main__":
     
     validate_dataset('istanbul-dams-daily-occupancy-rates.xlsx')
     validate_dataset('istanbul-barajlarnda-ya-ve-gunluk-tuketim-verileri.xlsx')
+
+    validate_dataset('consumption_cleaned.xlsx')
+    validate_dataset('occupancy_cleaned.xlsx')
     
