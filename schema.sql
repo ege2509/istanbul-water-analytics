@@ -7,8 +7,8 @@ id SERIAL PRIMARY KEY,
 CREATE TABLE daily_dam (
 id SERIAL PRIMARY KEY,
     dam_id INTEGER NOT NULL REFERENCES dams(id),
-	percipitation_pct DECIMAL(5, 2),
-	percipitation_m3 DECIMAL(12,2),
+	precipitation_pct DECIMAL(5, 2),
+	precipitation_m3 DECIMAL(12,2),
 	occupancy_pct DECIMAL(5,2),
 	occupancy_m3 DECIMAL(12,2),
 	date DATE
