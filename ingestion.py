@@ -16,7 +16,7 @@ cursor = conn.cursor()
 dam_dict = {
     "omerli": 235371000,
     "darlik": 107500000,
-    "elmali ": 9600000,
+    "elmali": 9600000,
     "terkos": 162241000,
     "alibey": 34143000,
     "buyukcekmece": 148943000,
@@ -29,15 +29,16 @@ try:
 
  
 
-    df1 = pd.read_excel("percipitation_consumption_cleaned.xlsx")
+    df1 = pd.read_excel("consumption_cleaned_5.xlsx")
 
     df1_long = df1.melt(id_vars=['Tarih'],
                     var_name="dam_name",
                     value_vars=['Ömerli', 'Darlik', 'Elmali', 'Terkos', 'Alibey', 'B.çekmece', 'Sazlidere', 'Kazandere', 'Pabuçdere', 'ıstırancalar'],
                     value_name="precipitation_pct")
 
-    df1_long = df1_long.rename(columns={
-        'ıstırancalar': 'Istrancalar', 'B.çekmece': 'Buyukcekmece'
+    df1_long["dam_name"] = df1_long["dam_name"].replace({
+        "B.çekmece": "Büyükçekmece",
+        "ıstırancalar": "Istrancalar"
     })
 
     df1_long["dam_name"] = (
@@ -66,7 +67,7 @@ try:
     df2['city_name'] = 'Istanbul'
 
 
-    df3= pd.read_excel("occupancy_cleaned.xlsx")
+    df3= pd.read_excel("occupancy_cleaned_5.xlsx")
 
     df3_long = df3.melt(id_vars= ['Tarih'], 
                     var_name="dam_name", 
@@ -120,7 +121,9 @@ try:
 
     cursor.execute("SELECT id, dam_name FROM dams")
     dam_id_map = {row[1]: row[0] for row in cursor.fetchall()}
-
+    
+    print(sorted(df1_long["dam_name"].unique()))
+    print(sorted(df4["dam_name"].unique()))
 
     print("Merging precipitation and occupancy data...")
     df_combined = pd.merge(
