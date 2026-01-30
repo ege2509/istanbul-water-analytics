@@ -50,17 +50,15 @@ def calculate_daily_system_metrics():
         for row in results:
             date, precip, occupancy, consumption, capacity = row
 
-            # Convert NULL to 0.0, handle None explicitly
             precip = float(precip) if precip is not None else 0.0
             occupancy = float(occupancy) if occupancy is not None else 0.0
             consumption = float(consumption) if consumption is not None else 0.0
             capacity = float(capacity) if capacity is not None else 0.0
             
-            # Calculate metrics
+            
             system_occupancy_pct = (occupancy / capacity * 100) if capacity > 0 else 0.0
             net_change = precip - (consumption / 10)
             
-            # Insert with converted values
             cursor.execute("""
                 INSERT INTO daily_system_metrics 
                 (date, total_precipitation_m3, total_occupancy_m3, total_capacity_m3, 
@@ -74,7 +72,6 @@ def calculate_daily_system_metrics():
         conn.commit()
         print(f" Inserted/updated {inserted_count} daily system metrics")
         
-        # Show sample with NULL check
         cursor.execute("""
             SELECT 
                 date, 
